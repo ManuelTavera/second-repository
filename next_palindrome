@@ -1,4 +1,5 @@
 """ https://www.geeksforgeeks.org/given-a-number-find-next-smallest-palindrome-larger-than-this-number/ """
+
 def next_palindrome(num):
     l_index, r_index = index(num)
     while boundary(l_index, r_index, num):
@@ -37,14 +38,17 @@ def inc_middle(lista, mid_index):
         lista[mid_index] = 0
         return inc_middle(lista, mid_index - 1)
     
-
+    
 def copy_left(lista):   
     l_index, r_index = index(lista)
     while l_index >= 0:
         lista[r_index] = lista[l_index]
         r_index += 1
         l_index -= 1
-    return lista
+    return print_result(lista)
+    
+def print_result(lista):
+    return ''.join([str(x) for x in lista])
 
 t = int(input())
 
