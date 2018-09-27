@@ -1,0 +1,52 @@
+def next_palindrome(num):
+    l_index, r_index = index(num)
+    while boundary(l_index, r_index, num):
+        l_index -= 1
+        r_index += 1
+    if l_index < 0 or num[l_index] < num[r_index]:
+        #make a slice in mid of list an set index to -1
+        l_index, noUse = index(num)
+        inc_middle(num, l_index)
+        return copy_left(num) 
+    elif num[l_index] >= num[r_index]:
+        return copy_left(num)
+    
+
+def index(lista):
+    size = len(lista)
+    if size % 2 == 0:
+        return int(size/2)-1, int(size/2)
+    else:
+        return int(size/2), int(size/2)
+        
+        
+def boundary(l_index, r_index, lista):
+    size = len(lista)
+    if l_index >= 0 and r_index < size:
+        if lista[l_index] == lista[r_index]:
+            return True
+    return False  
+    
+
+def inc_middle(lista, mid_index):
+    if mid_index < 0:
+        return 
+    lista[mid_index] += 1
+    if lista[mid_index] > 9:
+        lista[mid_index] = 0
+        return inc_middle(lista, mid_index - 1)
+    
+
+def copy_left(lista):   
+    l_index, r_index = index(lista)
+    while l_index >= 0:
+        lista[r_index] = lista[l_index]
+        r_index += 1
+        l_index -= 1
+    return lista
+
+t = int(input())
+
+for i in range(t):
+    num = [int(x) for x in input()]
+    print(next_palindrome(num))
