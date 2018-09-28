@@ -1,4 +1,5 @@
 """ https://www.geeksforgeeks.org/given-a-number-find-next-smallest-palindrome-larger-than-this-number/ """
+
 def next_palindrome(num):
     l_index, r_index = index(num)
     while boundary(l_index, r_index, num):
@@ -25,13 +26,13 @@ def boundary(l_index, r_index, lista):
             return True
     return False  
     
-    
+   
 def inc_middle(lista, mid_index):
     if mid_index < 0:
         if lista[0] == 0:
             lista.insert(0, 1)
         return 
-    lista[mid_index] += 1
+    int(lista[mid_index]) += 1
     if lista[mid_index] > 9:
         lista[mid_index] = 0
         return inc_middle(lista, mid_index - 1)
@@ -54,5 +55,5 @@ def print_result(lista):
 t = int(input())
 
 for i in range(t):
-    num = [int(x) for x in input()]
+    num = input()
     print(next_palindrome(num))
