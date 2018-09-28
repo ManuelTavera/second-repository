@@ -1,0 +1,80 @@
+def make_graph(node, neighbor, weight, dic):
+    if node not in dic:
+        dic[node] = {neighbor: weight}
+    else:
+        dic[node][neighbor] = weight
+    return
+
+
+def dijkstra(graph, source):
+    
+    distance = {}
+    visited = []
+    queue = []
+    
+    for v in graph:
+        distance[v] = [float("Inf"), []]
+        queue.append(v)
+    
+    distance[source] = [0, []]
+    
+    while queue:
+        
+        v = queue[0] 
+        
+        for u in queue:
+            if distance[u][0] < distance[v][0] and u not in visited:
+                v = u
+                
+        queue.remove(v)
+        visited.append(v)
+    
+        for u in graph[v]:
+            if distance[v][0] + graph[v][u] < distance[u][0]:
+                distance[u][0] = distance[v][0] + graph[v][u]
+                distance[u][1] = v
+  
+    return distance
+    
+    
+def shortest_path(distance, start, target, time):
+    found = False
+    count = 0
+    backtrack = start
+    while True:
+        if backtrack == target:
+            found = True
+            break
+        
+        count += distance[backtrack][0] 
+        backtrack = distance[backtrack][1]
+        
+        if not backtrack:
+            break
+        
+    if found:
+        if count <= time:
+            return 1
+    return 0
+    
+    
+    
+dic = {}
+count = 0
+
+n = int(input())
+exit = int(input())
+time = int(input())
+conn = int(input())
+
+
+for i in range(conn):
+    node, neighbor, weight = [int(x) for x in input().split()]
+    make_graph(node, neighbor, weight, dic)
+    
+distance = dijkstra(dic, exit)
+
+for i in range(1, n + 1):
+    count += shortest_path(distance, i, exit, time)
+
+print(count)
