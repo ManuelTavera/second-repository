@@ -1,17 +1,13 @@
 """ https://www.geeksforgeeks.org/given-a-number-find-next-smallest-palindrome-larger-than-this-number/ """
-
 def next_palindrome(num):
     l_index, r_index = index(num)
     while boundary(l_index, r_index, num):
         l_index -= 1
         r_index += 1
     if l_index < 0 or num[l_index] < num[r_index]:
-        #make a slice in mid of list an set index to -1
         l_index, noUse = index(num)
         inc_middle(num, l_index)
-        return copy_left(num) 
-    elif num[l_index] >= num[r_index]:
-        return copy_left(num)
+    return copy_left(num)
     
 
 def index(lista):
@@ -20,8 +16,8 @@ def index(lista):
         return int(size/2)-1, int(size/2)
     else:
         return int(size/2), int(size/2)
-        
-        
+      
+    
 def boundary(l_index, r_index, lista):
     size = len(lista)
     if l_index >= 0 and r_index < size:
@@ -29,9 +25,11 @@ def boundary(l_index, r_index, lista):
             return True
     return False  
     
-
+    
 def inc_middle(lista, mid_index):
     if mid_index < 0:
+        if lista[0] == 0:
+            lista.insert(0, 1)
         return 
     lista[mid_index] += 1
     if lista[mid_index] > 9:
@@ -41,14 +39,17 @@ def inc_middle(lista, mid_index):
     
 def copy_left(lista):   
     l_index, r_index = index(lista)
-    while l_index >= 0:
+    size = len(lista)
+    while l_index >= 0 and r_index < size:
         lista[r_index] = lista[l_index]
         r_index += 1
         l_index -= 1
     return print_result(lista)
     
+    
 def print_result(lista):
     return ''.join([str(x) for x in lista])
+
 
 t = int(input())
 
