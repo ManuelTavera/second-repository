@@ -48,9 +48,10 @@ def copy_left(lista):
     
     
 def print_result(lista):
-    return ''.join([str(x) for x in lista])
-
-
+    word = ""
+    [word += str(x) for x in lista]
+    return word
+        
 t = int(input())
 
 for i in range(t):
