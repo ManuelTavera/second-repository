@@ -1,0 +1,25 @@
+n , r = [int(x) for x in input().split()]
+arr = [int(x) for x in input().split()]
+
+
+counter = 0
+a = b = 0
+while a < n:
+    if arr[a] == 1:
+        _min = max(a - r + 1, b)
+        _max = min(a + r - 1, n - 1)
+        for b in range(_min, _max + 1):
+            arr[b] = 1
+        counter += 1
+        a = b
+    else:
+        a += 1
+
+if arr.count(1) == n:
+    print(counter)
+else:
+    print(-1)
+
+
+
+
